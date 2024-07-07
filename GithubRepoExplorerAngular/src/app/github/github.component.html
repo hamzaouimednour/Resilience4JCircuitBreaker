@@ -1,0 +1,17 @@
+<div class="container">
+  <h1 class="mat-h1">GitHub Repository Explorer</h1>
+  <mat-form-field class="search-field">
+    <input matInput [(ngModel)]="searchQuery" placeholder="Enter search query">
+    <button mat-button (click)="searchRepositories()">Search</button>
+  </mat-form-field>
+
+  <mat-list>
+    <mat-list-item *ngFor="let repo of repositories" (click)="viewDetails(repo.owner, repo.name)">
+      <h3 mat-line>{{ repo.name }}</h3>
+      <p mat-line>{{ repo.description }}</p>
+      <p mat-line>Owner: {{ repo.owner }}</p>
+      <p mat-line>Stars: {{ repo.stars }}</p>
+      <p mat-line>Forks: {{ repo.forks }}</p>
+    </mat-list-item>
+  </mat-list>
+</div>
