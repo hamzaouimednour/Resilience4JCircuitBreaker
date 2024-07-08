@@ -4,6 +4,7 @@ import com.devbox.Resilience4JCircuitBreaker.model.GitHubOwner;
 import com.devbox.Resilience4JCircuitBreaker.model.GitHubRepository;
 import com.devbox.Resilience4JCircuitBreaker.service.GitHubService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ public class GitHubController {
 
     @GetMapping("/search")
     @CircuitBreaker(name = "gitHubService", fallbackMethod = "fallbackSearchRepositories")
+    @Retry(name = "githubSearch", fallbackMethod = "fallbackSearchRepositories")
     public ResponseEntity<List<GitHubRepository>> searchRepositories(@RequestParam String query) {
         List<GitHubRepository> repositories = gitHubService.searchRepositories(query);
         return ResponseEntity.ok(repositories);

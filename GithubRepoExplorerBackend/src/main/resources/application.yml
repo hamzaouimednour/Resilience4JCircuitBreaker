@@ -1,4 +1,9 @@
 resilience4j:
+  retry:
+    instances:
+      githubSearch:
+        maxRetryAttempts: 3
+        waitDuration: 500ms
   circuitbreaker:
     instances:
       myService:
