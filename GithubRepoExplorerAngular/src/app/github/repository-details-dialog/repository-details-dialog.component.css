@@ -1,0 +1,9 @@
+.dialog-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.repo-card {
+  width: 400px; /* Adjust width as needed */
+  margin: auto;
+}

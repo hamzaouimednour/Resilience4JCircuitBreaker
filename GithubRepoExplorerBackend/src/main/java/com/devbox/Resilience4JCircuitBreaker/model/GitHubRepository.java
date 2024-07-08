@@ -15,7 +15,8 @@ public class GitHubRepository {
 
     private String name;
     private String description;
-    private String owner;
+
+    private GitHubOwner owner;
 
     @JsonProperty("stargazers_count")
     private int stargazersCount;

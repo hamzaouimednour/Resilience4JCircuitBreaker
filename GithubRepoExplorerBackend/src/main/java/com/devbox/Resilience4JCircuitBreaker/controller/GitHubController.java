@@ -1,5 +1,6 @@
 package com.devbox.Resilience4JCircuitBreaker.controller;
 
+import com.devbox.Resilience4JCircuitBreaker.model.GitHubOwner;
 import com.devbox.Resilience4JCircuitBreaker.model.GitHubRepository;
 import com.devbox.Resilience4JCircuitBreaker.service.GitHubService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/repositories")
+@CrossOrigin(origins = "http://localhost:4200")
 public class GitHubController {
 
     @Autowired
@@ -38,15 +40,15 @@ public class GitHubController {
     public ResponseEntity<List<GitHubRepository>> fallbackSearchRepositories(String query, Exception e) {
         // Fallback response when searchRepositories fails
         List<GitHubRepository> fallbackList = Arrays.asList(
-                new GitHubRepository("FallbackRepo1", "Description", "FallbackOwner", 0, 0),
-                new GitHubRepository("FallbackRepo2", "Description", "FallbackOwner", 0, 0)
+                new GitHubRepository("FallbackRepo1", "Description", new GitHubOwner("FallbackOwner"), 0, 0),
+                new GitHubRepository("FallbackRepo2", "Description", new GitHubOwner("FallbackOwner"), 0, 0)
         );
         return ResponseEntity.ok(fallbackList);
     }
 
     public ResponseEntity<GitHubRepository> fallbackRepositoryDetails(String owner, String repo, Exception e) {
         // Fallback response when getRepositoryDetails fails
-        GitHubRepository fallbackRepo = new GitHubRepository("FallbackRepo", "Description", "FallbackOwner", 0, 0);
+        GitHubRepository fallbackRepo = new GitHubRepository("FallbackRepo", "Description", new GitHubOwner("FallbackOwner"), 0, 0);
         return ResponseEntity.ok(fallbackRepo);
     }
 }

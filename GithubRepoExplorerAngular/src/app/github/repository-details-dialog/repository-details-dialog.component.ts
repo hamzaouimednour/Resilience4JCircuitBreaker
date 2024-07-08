@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { GitHubRepository } from '../github.model';
 
 @Component({
@@ -9,6 +9,12 @@ import { GitHubRepository } from '../github.model';
 })
 export class RepositoryDetailsDialogComponent {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: GitHubRepository) { }
+  constructor(
+    public dialogRef: MatDialogRef<RepositoryDetailsDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: GitHubRepository
+  ) { }
 
+  onClose(): void {
+    this.dialogRef.close();
+  }
 }

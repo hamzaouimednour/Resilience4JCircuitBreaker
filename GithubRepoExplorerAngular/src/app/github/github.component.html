@@ -6,12 +6,12 @@
   </mat-form-field>
 
   <mat-list>
-    <mat-list-item *ngFor="let repo of repositories" (click)="viewDetails(repo.owner, repo.name)">
+    <mat-list-item *ngFor="let repo of repositories" (click)="viewDetails(repo.owner.login, repo.name)">
       <h3 mat-line>{{ repo.name }}</h3>
       <p mat-line>{{ repo.description }}</p>
-      <p mat-line>Owner: {{ repo.owner }}</p>
-      <p mat-line>Stars: {{ repo.stars }}</p>
-      <p mat-line>Forks: {{ repo.forks }}</p>
+      <p mat-line>Owner: {{ repo.owner.login }}</p>
+      <p mat-line>Stars: {{ repo.stargazers_count }}</p>
+      <p mat-line>Forks: {{ repo.forks_count }}</p>
     </mat-list-item>
   </mat-list>
 </div>

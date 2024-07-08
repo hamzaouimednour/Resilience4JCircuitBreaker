@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { GitHubService } from './github.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { RepositoryDetailsDialogComponent } from './repository-details-dialog/repository-details-dialog.component';
+import { GitHubRepository } from './github.model';
 
 @Component({
   selector: 'app-github',
@@ -9,8 +11,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./github.component.css']
 })
 export class GitHubComponent implements OnInit {
-  repositories: GitHubRepository[];
-  searchQuery: string;
+  searchQuery: string = '';
+  username: string = '';
+  repositories: GitHubRepository[] = [];
 
   constructor(
     private gitHubService: GitHubService,
@@ -51,23 +54,10 @@ export class GitHubComponent implements OnInit {
       }
     );
   }
-}
 
-@Component({
-  selector: 'repository-details-dialog',
-  template: `
-    <h1 mat-dialog-title>{{ data.name }}</h1>
-    <div mat-dialog-content>
-      <p>{{ data.description }}</p>
-      <p>Owner: {{ data.owner }}</p>
-      <p>Stars: {{ data.stars }}</p>
-      <p>Forks: {{ data.forks }}</p>
-    </div>
-    <div mat-dialog-actions>
-      <button mat-button [mat-dialog-close]="'close'">Close</button>
-    </div>
-  `,
-})
-export class RepositoryDetailsDialogComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: GitHubRepository) { }
+  openRepositoryDetailsDialog(repo: GitHubRepository): void {
+      this.dialog.open(RepositoryDetailsDialogComponent, {
+        data: repo
+      });
+    }
 }

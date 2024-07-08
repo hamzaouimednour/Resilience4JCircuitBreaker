@@ -14,6 +14,7 @@ public class GitHubSearchResponse {
     @JsonProperty("incomplete_results")
     private boolean incompleteResults;
 
+    @JsonProperty("items")
     private List<GitHubRepository> repositories;
 
 }
